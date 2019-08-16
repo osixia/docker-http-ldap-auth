@@ -1,0 +1,20 @@
+Alias /{{ LOCATION_PATH }} /var/www/html
+<Location {{ LOCATION_PATH }}>
+    Order deny,allow
+    Allow from all
+    AuthName "{{ LOCATION_NAME }}"
+    AuthType basic
+    AuthBasicProvider ldap
+    AuthLDAPBindAuthoritative on
+    AuthLDAPURL ${HTTP_LDAP_AUTH_AUTHLDAPURL}
+    AuthLDAPBindDN "${HTTP_LDAP_AUTH_AUTHLDAPBINDDN}"
+    AuthLDAPBindPassword ${HTTP_LDAP_AUTH_AUTHLDAPBINDPASSWORD}
+    AuthLDAPGroupAttribute ${HTTP_LDAP_AUTH_AUTHLDAPGROUPATTRIBUTE}
+    AuthLDAPGroupAttributeIsDN ${HTTP_LDAP_AUTH_AUTHLDAPGROUPATTRIBUTEISDN}
+
+    Require {{ LOCATION_REQUIRE }}
+
+    #LDAPTrustedClientCert CERT_BASE64 ${CONTAINER_SERVICE_DIR}/ldap-client/assets/certs/${HTTP_LDAP_AUTH_LDAP_CLIENT_TLS_CRT_FILENAME}
+    #LDAPTrustedClientCert KEY_BASE64 ${CONTAINER_SERVICE_DIR}/ldap-client/assets/certs/${HTTP_LDAP_AUTH_LDAP_CLIENT_TLS_KEY_FILENAME}
+    #LDAPTrustedClientCert CA_BASE64 ${CONTAINER_SERVICE_DIR}/ldap-client/assets/certs/${HTTP_LDAP_AUTH_LDAP_CLIENT_TLS_CA_CRT_FILENAME}
+</Location>

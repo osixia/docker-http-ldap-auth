@@ -1,0 +1,35 @@
+HTTP_LDAP_AUTH_SERVER_ADMIN: webmaster@example.org
+
+HTTP_LDAP_AUTH_HTTPS_CRT_FILENAME: http.crt
+HTTP_LDAP_AUTH_HTTPS_KEY_FILENAME: http.key
+HTTP_LDAP_AUTH_HTTPS_CA_CRT_FILENAME: ca.crt
+
+HTTP_LDAP_AUTH_AUTHLDAPURL: ldap://ldap.example.org/ou=users,dc=example,dc=org STARTTLS
+HTTP_LDAP_AUTH_AUTHLDAPBINDDN: cn=admin,dc=example,dc=org
+HTTP_LDAP_AUTH_AUTHLDAPBINDPASSWORD: admin
+
+HTTP_LDAP_AUTH_AUTHLDAPGROUPATTRIBUTE: memberUid
+HTTP_LDAP_AUTH_AUTHLDAPGROUPATTRIBUTEISDN: "Off"
+
+HTTP_LDAP_AUTH_LOCATIONS: 
+  - Admin:
+    - path: /admin
+    - require: ldap-group cn=admin,ou=groups,dc=example,dc=org
+  - Members:
+    - path: /members
+    - require: ldap-group cn=members,ou=groups,dc=example,dc=org
+
+# LDAP client tls config
+HTTP_LDAP_AUTH_LDAP_CLIENT_TLS: true
+HTTP_LDAP_AUTH_LDAPVERIFYSERVERCERT: "On"
+HTTP_LDAP_AUTH_LDAPTRUSTEDMODE: TLS
+HTTP_LDAP_AUTH_LDAP_CLIENT_TLS_REQCERT: demand
+
+HTTP_LDAP_AUTH_LDAP_CLIENT_TLS_CA_CRT_FILENAME: ldap-ca.crt
+HTTP_LDAP_AUTH_LDAP_CLIENT_TLS_CRT_FILENAME: ldap-client.crt
+HTTP_LDAP_AUTH_LDAP_CLIENT_TLS_KEY_FILENAME: ldap-client.key
+
+HTTP_LDAP_AUTH_SSL_HELPER_PREFIX: http
+LDAP_CLIENT_SSL_HELPER_PREFIX: ldap
+
+SSL_HELPER_AUTO_RENEW_SERVICES_IMPACTED: :apache2
